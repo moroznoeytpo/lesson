@@ -7,9 +7,13 @@ docker compose up -d
 
 ## Локальный запуск
 ```bash
+python -m venv .vent # Создание виртуального окружения
+source .venv/bin/activate # Активация окружения
+pip install -r requirements.txt # Установка зависимостей
+
 python manage.py runserver # Запуск Django приложения
-brew services start rabbitmq # Запуск брокера
-celery -A lesson worker --loglevel=info # Запуск Celery 
+brew services start rabbitmq # Запуск брокера (macOs)
+celery -A lesson worker --loglevel=info # Запуск Celery
 ```
 
 # Первый студент
@@ -28,4 +32,4 @@ user = User.objects.create_user(
 ```
 
 # Логика
-При сохранении урока в БД проверяем его статус (Завершен) и запускаем процесс отправки уведомления (имитация)
+При сохранении урока в БД проверяем его статус (Завершен) и запускаем процесс отправки уведомления (имитация).
