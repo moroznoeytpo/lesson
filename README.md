@@ -16,6 +16,14 @@ brew services start rabbitmq # Запуск брокера (macOs)
 celery -A lesson worker --loglevel=info # Запуск Celery
 ```
 
+## Настройка проекта
+Для корректной работы нужно в корне проекта создать .env файл
+```bash
+CELERY_BROKER_URL=amqp://user:password@rabbitmq:5672//
+CELERY_RESULT_BACKEND=rpc://
+```
+
+
 # Первый студент
 ```bash
 python manage.py shell
