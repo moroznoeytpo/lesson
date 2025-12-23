@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    depends_on:
+      - rabbitmq
+    ports:
+      - "80:8000"
+    volumes:
+      - .:/app
+    command: python3 manage.py runserver 0.0.0.0:8000
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/mnesia/
+
+  celery:
+    build: .
+    depends_on:
+      - rabbitmq
+    volumes:
+      - .:/app
+    command: celery -A lesson worker --loglevel=info
+
+volumes:
+  rabbitmq_data:
