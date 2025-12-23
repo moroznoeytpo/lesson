@@ -11,6 +11,7 @@ python -m venv .vent # Создание виртуального окружен�
 source .venv/bin/activate # Активация окружения
 pip install -r requirements.txt # Установка зависимостей
 
+python manage.py migrate # Накатываем миграции
 python manage.py runserver # Запуск Django приложения
 brew services start rabbitmq # Запуск брокера (macOs)
 celery -A lesson worker --loglevel=info # Запуск Celery
@@ -41,3 +42,8 @@ user = User.objects.create_user(
 
 # Логика
 При сохранении урока в БД проверяем его статус (Завершен) и запускаем процесс отправки уведомления (имитация).
+## Шаги
+1) Заходим в админку /admin (guest:guest)
+2) Переходим в раздел Уроков /admin/lesson/lessonmodel/
+3) Создаем урок /admin/lesson/lessonmodel/add/ со статусом "Завершен"
+4) Переходим в консоль Celery и видим уведомление
